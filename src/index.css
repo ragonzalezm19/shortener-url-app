@@ -1,8 +1,21 @@
+@font-face {
+  font-family: 'Ubuntu';
+  src: local('Ubuntu'), url('./style/font/Ubuntu-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Ubuntu Light';
+  src: local('Ubuntu'), url('./style/font/Ubuntu-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Ubuntu Italic';
+  src: local('Ubuntu'), url('./style/font/Ubuntu-Italic.ttf');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
