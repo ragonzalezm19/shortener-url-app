@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import './../style/CreateShortUrl.css';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useLocation } from 'react-router';
 import Loader from '../components/Loader';
 
@@ -17,7 +16,7 @@ const CreateShortUrl = () => {
   const [url, setUrl] = useState('');
   const [alias, setAlias] = useState('');
   const [error, setError] = useState(errorInitialState);
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
   const location = useLocation();
   const rootPath = window.location.href.replace(location.pathname, '');
 
