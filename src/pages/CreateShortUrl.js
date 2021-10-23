@@ -37,7 +37,7 @@ const CreateShortUrl = () => {
     );
 
     if (!url.match(regex)) {
-      setError({ show: true, message: 'la URL no es valida' });
+      setError({ show: true, message: 'URL not valid' });
       return;
     }
 
@@ -61,15 +61,15 @@ const CreateShortUrl = () => {
       case 'success':
         Swal.fire({
           icon: 'success',
-          title: 'Url creada',
-          text: message,
+          title: 'New super-cool-shorturl:',
+          html: message,
         });
         break;
       case 'error':
         Swal.fire({
           icon: 'error',
           title: 'Oops 😅',
-          text: message,
+          html: message,
         });
         break;
       default:
@@ -86,11 +86,11 @@ const CreateShortUrl = () => {
 
       setLoader(false);
       resetForm();
-      notify(`${rootPath}/sh/${newAlias}`, 'success');
+      notify(`<b>${rootPath}/sh/${newAlias}</b> 🔥`, 'success');
     } catch (error) {
       console.log(error);
       setLoader(false);
-      notify('Ha ocurrido un error al crear la URL', 'error');
+      notify('Sorry, there was an error creating the URL', 'error');
     }
   };
 
