@@ -32,8 +32,9 @@ const RedirectUrl = () => {
   };
 
   return (
-    <div className='container'>
-      <p className='message'>You are being redirected, please wait...</p>
+    <div className='redirect-container'>
+      <p className='message'>You are being redirected, please wait </p>
+      <div class='dot-overtaking'></div>
     </div>
   );
 };

@@ -100,7 +100,7 @@ const CreateShortUrl = () => {
   };
 
   return (
-    <div className='container'>
+    <div className='create-url-container'>
       <h1 className='title'>Custom URL Shortener</h1>
       <div className='form-container'>
         <form onSubmit={handleSubmit}>
@@ -120,7 +120,7 @@ const CreateShortUrl = () => {
               onChange={handleAliasChange}
             />
             <button type='submit' className='button'>
-              Create
+              Get Shorty
             </button>
           </div>
         </form>
