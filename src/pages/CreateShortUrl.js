@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import './../style/CreateShortUrl.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import Loader from 'react-loader-spinner';
 import { useLocation } from 'react-router';
+import Loader from '../components/Loader';
 
 const API_URL = 'https://ragonzalezm19-shorter-url.herokuapp.com/api';
 
@@ -17,7 +17,7 @@ const CreateShortUrl = () => {
   const [url, setUrl] = useState('');
   const [alias, setAlias] = useState('');
   const [error, setError] = useState(errorInitialState);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const location = useLocation();
   const rootPath = window.location.href.replace(location.pathname, '');
 
@@ -126,13 +126,9 @@ const CreateShortUrl = () => {
         </form>
       </div>
       {loader ? (
-        <Loader
-          className='loader'
-          type='Oval'
-          color='#144d79'
-          height={200}
-          width={200}
-        />
+        <div className='loader'>
+          <Loader />
+        </div>
       ) : (
         ''
       )}

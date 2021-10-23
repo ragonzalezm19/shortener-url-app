@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
+import Loader from '../components/Loader';
 import './../style/RedirectUrl.css';
 
 const URL = 'https://ragonzalezm19-shorter-url.herokuapp.com/api';
@@ -34,7 +35,7 @@ const RedirectUrl = () => {
   return (
     <div className='redirect-container'>
       <p className='message'>You are being redirected, please wait </p>
-      <div class='dot-overtaking'></div>
+      <Loader />
     </div>
   );
 };
