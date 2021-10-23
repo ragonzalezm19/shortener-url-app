@@ -13,7 +13,7 @@ const RedirectUrl = () => {
     getShortUrl(alias)
       .then((url) => {
         if (url !== null) window.location.href = url;
-        history.replace('/create');
+        else history.replace('/create');
       })
       .catch((error) => console.log(error));
   }, []);
