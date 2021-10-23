@@ -86,7 +86,7 @@ const CreateShortUrl = () => {
 
       setLoader(false);
       resetForm();
-      notify(`${rootPath}/${newAlias}`, 'success');
+      notify(`${rootPath}/sh/${newAlias}`, 'success');
     } catch (error) {
       console.log(error);
       setLoader(false);
