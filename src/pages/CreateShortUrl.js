@@ -1,12 +1,25 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import './../style/CreateShortUrl.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
+import { useLocation } from 'react-router';
 
-const URL = 'https://ragonzalezm19-shorter-url.herokuapp.com/api';
+const API_URL = 'https://ragonzalezm19-shorter-url.herokuapp.com/api';
+
+const errorInitialState = {
+  show: false,
+  message: '',
+};
 
 const CreateShortUrl = () => {
   const [url, setUrl] = useState('');
   const [alias, setAlias] = useState('');
+  const [error, setError] = useState(errorInitialState);
+  const [loader, setLoader] = useState(false);
+  const location = useLocation();
+  const rootPath = window.location.href.replace(location.pathname, '');
 
   const handleUrlInputChange = (event) => {
     setUrl(event.target.value);
@@ -19,21 +32,71 @@ const CreateShortUrl = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const regex = new RegExp(
+      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi
+    );
+
+    if (!url.match(regex)) {
+      setError({ show: true, message: 'la URL no es valida' });
+      return;
+    }
+
+    setError(errorInitialState);
+
+    let urlToTrim = url;
+
+    if (urlToTrim.substr(0, 3).toLowerCase() === 'www')
+      urlToTrim = `http://${urlToTrim}`;
+
     const newShortUrl = {
       alias,
-      url,
+      url: urlToTrim,
     };
 
     createShortUrl(newShortUrl);
   };
 
+  const notify = (message, type) => {
+    switch (type) {
+      case 'success':
+        Swal.fire({
+          icon: 'success',
+          title: 'Url creada',
+          text: message,
+        });
+        break;
+      case 'error':
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops 😅',
+          text: message,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   const createShortUrl = async (urlData) => {
+    setLoader(true);
+
     try {
-      const response = await axios.post(`${URL}/url`, urlData);
-      console.log(response.data);
+      const response = await axios.post(`${API_URL}/url`, urlData);
+      const { alias: newAlias } = response.data.data;
+
+      setLoader(false);
+      resetForm();
+      notify(`${rootPath}/${newAlias}`, 'success');
     } catch (error) {
       console.log(error);
+      setLoader(false);
+      notify('Ha ocurrido un error al crear la URL', 'error');
     }
+  };
+
+  const resetForm = () => {
+    setUrl('');
+    setAlias('');
   };
 
   return (
@@ -62,7 +125,18 @@ const CreateShortUrl = () => {
           </div>
         </form>
       </div>
-      <div className='response-container'></div>
+      {loader ? (
+        <Loader
+          className='loader'
+          type='Oval'
+          color='#144d79'
+          height={200}
+          width={200}
+        />
+      ) : (
+        ''
+      )}
+      {error.show ? <div className='error-container'>{error.message}</div> : ''}
     </div>
   );
 };
